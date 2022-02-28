@@ -2,8 +2,12 @@ package main.com.adventure;
 
 import main.com.adventure.settings.Command;
 import main.com.adventure.settings.CommandConstants;
+import org.checkerframework.checker.units.qual.C;
 
 import java.util.Locale;
+import java.util.Scanner;
+
+import static org.junit.jupiter.params.shadow.com.univocity.parsers.conversions.Conversions.trim;
 
 public class GameInputProcessor {
 
@@ -12,8 +16,9 @@ public class GameInputProcessor {
      * @return the response from the user.
      */
     public String prompt() {
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Enter your next command:");
-        return "";
+        return scanner.nextLine();
     }
 
     /**
@@ -29,7 +34,10 @@ public class GameInputProcessor {
      * @return - the Command object with the proper verb and blank object
      */
     private Command buildSimpleCommand(String input) {
-        return new Command("");
+        String[] args = input.split(" ");
+        String verb = new String(args[0]);
+
+        return new Command( verb,"");
     }
 
     /**
@@ -52,7 +60,22 @@ public class GameInputProcessor {
      * @return - the Command object with the proper verb and object
      */
     private Command buildCommandWithObject(String input) {
-        return new Command("", "");
+// possible inputs
+        // "move west"
+        // "move"
+        // "move "
+        // " move "
+        String trimString = input.trim();
+        if(input.contains(" ") ){
+            // does not solve when space is in the wrong place.
+            int storeIndex = trimString.indexOf(" ");
+            String verb = trimString.substring(0, storeIndex);
+            String object =trimString.substring(storeIndex + 1);
+
+            return new Command(verb,object);
+        }
+
+        return new Command(trimString,"");
     }
 
 
