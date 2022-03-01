@@ -3,18 +3,19 @@ package main.com.adventure.world.objects;
 import main.com.adventure.world.objects.keys.Key;
 
 public class Hole {
+    private HoleContent holeContent;
 
     /**
      * Creates a hole with the given content.
      * @param content - the item that is covered by the hole.
      */
     public Hole(Key content) {
-
+        holeContent = new HoleContent(content);
     }
 
     public boolean isCovered() {
         //TODO This value should come from HoleContent
-        return false;
+        return holeContent.isCovered();
     }
 
     /**
@@ -22,6 +23,12 @@ public class Hole {
      */
     public void dig() {
         //TODO this function should update HoleContent's isCovered property.
+        if (holeContent.isCovered()) {
+            holeContent.setIsCovered(false);
+            System.out.println("the hole is uncovered.");
+        } else {
+            System.out.println("The hole is already dug out.");
+        }
     }
 
     /**
@@ -30,6 +37,9 @@ public class Hole {
      */
     private Key getKeyIfPossible() {
         //TODO Get the HoleContent's content only if the hole is uncovered.
+        if (!holeContent.isCovered()) {
+            return holeContent.getKey();
+        }
         return null;
     }
 

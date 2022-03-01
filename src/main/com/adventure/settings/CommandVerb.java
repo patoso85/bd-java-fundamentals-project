@@ -22,11 +22,49 @@ public enum CommandVerb {
 
     /**
      * Takes verbString to determine and return the associated CommandVerb.
+     *
      * @param verbString - the verb from the user input
      * @return - the CommandVerb associated with the given input.
      */
     public static CommandVerb getVerb(String verbString) {
-        return INVALID;
+        String upperCase = verbString.toUpperCase();
+        CommandVerb returnValue;
+        switch (upperCase) {
+            case "TAKE":
+                returnValue = TAKE;
+                break;
+            case "MOVE":
+                returnValue = MOVE;
+                break;
+            case "USE":
+                returnValue = USE;
+                break;
+            case "DIG":
+                returnValue = DIG;
+                break;
+            case "EXAMINE":
+                returnValue = EXAMINE;
+                break;
+            case "LOOK":
+                returnValue = LOOK;
+                break;
+            case "HELP":
+                returnValue = HELP;
+                break;
+            //Used in Sprint 3 Module 2
+            case "FIGHT":
+                returnValue = FIGHT;
+                break;
+            //Used in Sprint 3 Module 3
+            case "INVENTORY":
+                returnValue = INVENTORY;
+                break;
+            default:
+                returnValue = INVALID;
+                break;
+        }
+        return returnValue;
     }
-
 }
+
+
