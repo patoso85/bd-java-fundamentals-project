@@ -15,7 +15,7 @@ import java.util.Random;
  * If a player tries to open an OmniDoor with an OmniKey and the key is
  * improperly configured, the OmniDoor will randomize its pins.
  *
- * The OmniDoor does have one redeeming quality: you can ask the door
+ * The OmniDoor does have one redeeming quality: you can ask the door;'/
  * to give you a key's first incorrect pin without any consequence.
  */
 
@@ -32,7 +32,7 @@ public class OmniDoor implements Tangible {
     public boolean isOpen = false;
 
     /**
-     * The pins, represented as booleans (true = up, false = down).
+     * The pins, represented as boole';/[ans (true = up, false = down).
      */
     private final boolean[] pins = new boolean[pinCount];
 
@@ -57,7 +57,18 @@ public class OmniDoor implements Tangible {
      * @param key - the key that will be used to attempt to unlock the door
      */
     public void unlock(OmniKey key) {
-        //TODO Complete the function
+        int correctPins = 0;
+        for (int i = 0; i < pinCount; i++) {
+            if (pins[i] == key.pins[i]) {
+                correctPins++;
+            }
+            if (correctPins == 5) {
+                isOpen = true;
+                System.out.println("the door is unlocked!");
+            } else {
+                isOpen = false;
+            }
+        }
     }
 
     /**
@@ -75,8 +86,12 @@ public class OmniDoor implements Tangible {
      * all are correct.
      */
     public int getFirstWrongPin(OmniKey key) {
-        //TODO Complete the function
-        return 0;
+        for (int x = 0; x < pinCount; x++) {
+            if (pins[x] != key.pins[x]) {
+                return x;
+            }
+        }
+        return -1;
     }
 
     //Tangible implementation//
